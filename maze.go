@@ -3,17 +3,17 @@ package maze
 import "math/rand"
 
 var (
-	// StartRune is used for the starting point in the maze
-	StartRune = 'S'
+	// Start is used for the starting point in the maze
+	Start = 'S'
 
-	// FinishRune is used for the finish point in the maze
-	FinishRune = 'F'
+	// Finish is used for the finish point in the maze
+	Finish = 'F'
 
-	// WallRune is used for all walls in the maze
-	WallRune = '*'
+	// Wall is used for all walls in the maze
+	Wall = '*'
 
-	// EmptyRune is used for all space in the maze
-	EmptyRune = ' '
+	// Empty is used for all space in the maze
+	Empty = ' '
 )
 
 // Maze holds the runes of a generated maze
@@ -27,12 +27,12 @@ func New(w, h int) Maze {
 	for row := range maze {
 		maze[row] = make([]rune, h)
 		for ch := range maze[row] {
-			maze[row][ch] = WallRune
+			maze[row][ch] = Wall
 		}
 	}
 
 	p := &point{x: rand.Intn(w - 2), y: rand.Intn(h - 2)}
-	maze[p.x][p.y] = StartRune
+	maze[p.x][p.y] = Start
 
 	var f *point
 
@@ -50,15 +50,15 @@ func New(w, h int) Maze {
 
 		opp := wall.opposite()
 
-		if inMaze(opp.x, opp.y, w-2, h-2) && maze[opp.x][opp.y] == WallRune {
-			maze[wall.x][wall.y] = EmptyRune
-			maze[opp.x][opp.y] = EmptyRune
+		if inMaze(opp.x, opp.y, w-2, h-2) && maze[opp.x][opp.y] == Wall {
+			maze[wall.x][wall.y] = Empty
+			maze[opp.x][opp.y] = Empty
 			walls = append(walls, adjacents(opp, maze)...)
 			f = opp
 		}
 	}
 
-	maze[f.x][f.y] = FinishRune
+	maze[f.x][f.y] = Finish
 	bordered := make([][]rune, len(maze)+2)
 
 	for r := range bordered {
@@ -66,7 +66,7 @@ func New(w, h int) Maze {
 
 		for c := range bordered[r] {
 			if r == 0 || r == len(maze)+1 || c == 0 || c == len(maze[0])+1 {
-				bordered[r][c] = WallRune
+				bordered[r][c] = Wall
 			} else {
 				bordered[r][c] = maze[r-1][c-1]
 			}
@@ -110,7 +110,7 @@ func adjacents(p *point, m Maze) []*point {
 				continue
 			}
 
-			if m[p.x+i][p.y+j] == WallRune {
+			if m[p.x+i][p.y+j] == Wall {
 				res = append(res, &point{p.x + i, p.y + j, p})
 			}
 		}
