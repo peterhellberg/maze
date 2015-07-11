@@ -25,5 +25,5 @@ func main() {
 	m := maze.New(*width, *height)
 
 	// Print the maze
-	fmt.Println(m)
+	fmt.Print(m)
 }
