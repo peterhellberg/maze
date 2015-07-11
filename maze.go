@@ -50,6 +50,10 @@ func New(w, h int) Maze {
 
 		opp := wall.opposite()
 
+		inMaze := func(x, y int, w, h int) bool {
+			return x >= 0 && x < w && y >= 0 && y < h
+		}
+
 		if inMaze(opp.x, opp.y, w-2, h-2) && maze[opp.x][opp.y] == Wall {
 			maze[wall.x][wall.y] = Empty
 			maze[opp.x][opp.y] = Empty
@@ -97,6 +101,10 @@ func (m Maze) Height() int {
 	return len(m[0])
 }
 
+func (m Maze) include(x, y int) bool {
+	return x >= 0 && x < m.Width() && y >= 0 && y < m.Height()
+}
+
 func adjacents(p *point, m Maze) []*point {
 	var res []*point
 
@@ -106,7 +114,7 @@ func adjacents(p *point, m Maze) []*point {
 				continue
 			}
 
-			if !inMaze(p.x+i, p.y+j, m.Width(), m.Height()) {
+			if !m.include(p.x+i, p.y+j) {
 				continue
 			}
 
@@ -117,10 +125,6 @@ func adjacents(p *point, m Maze) []*point {
 	}
 
 	return res
-}
-
-func inMaze(x, y int, w, h int) bool {
-	return x >= 0 && x < w && y >= 0 && y < h
 }
 
 type point struct {

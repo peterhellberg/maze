@@ -2,7 +2,7 @@ package maze
 
 import "testing"
 
-func TestInMaze(t *testing.T) {
+func TestMazeInclude(t *testing.T) {
 	for i, tt := range []struct {
 		x, y int
 		w, h int
@@ -13,9 +13,11 @@ func TestInMaze(t *testing.T) {
 		{10, 10, 50, 50, true},
 		{10, 10, 11, 50, true},
 	} {
-		if got := inMaze(tt.x, tt.y, tt.w, tt.h); got != tt.b {
-			t.Fatalf(`T%d: inMaze(%d, %d, %d, %d) = %v, want %v`,
-				i, tt.x, tt.y, tt.w, tt.h, got, tt.b)
+		m := New(tt.w, tt.h)
+
+		if got := m.include(tt.x, tt.y); got != tt.b {
+			t.Fatalf(`T%d: m.Include(%d, %d) = %v, want %v`,
+				i, tt.x, tt.y, got, tt.b)
 		}
 	}
 }
