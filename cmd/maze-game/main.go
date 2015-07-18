@@ -83,6 +83,8 @@ func (g *Game) newMaze() {
 			}
 		}
 	}
+
+	fmt.Println(g.Maze, "\nNew maze, current score:", g.Score)
 }
 
 func (g *Game) Run(width, height, scale int, title string) error {
@@ -143,7 +145,6 @@ func (g *Game) update(screen *ebiten.Image) error {
 	if g.Maze[g.X][g.Y] == maze.Finish {
 		g.Score += (g.W * g.H) / 100
 		g.newMaze()
-		fmt.Println("Started new maze, current score:", g.Score)
 	}
 
 	if ebiten.IsKeyPressed(ebiten.KeyEscape) || ebiten.IsKeyPressed(ebiten.KeyQ) {
