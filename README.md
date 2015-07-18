@@ -15,6 +15,17 @@ in the [termloop](https://github.com/JoelOtter/termloop) package.
 
     go get -u github.com/peterhellberg/maze
 
+## Example game
+
+I’ve written a small game using the maze package and [ebiten](https://hajimehoshi.github.io/ebiten/)
+
+![maze-game](http://assets.c7.se/skitch/Maze-20150718-105812.png)
+
+    go get -u github.com/peterhellberg/maze/cmd/maze-game
+
+Use the arrow keys to move the orange square to the blue finish square.
+Exit the game with `Q` or `ESC`, restart with `R`
+
 ## License (MIT)
 
 Copyright (c) 2015 [Peter Hellberg](http://c7.se/)
