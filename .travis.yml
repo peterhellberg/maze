@@ -4,6 +4,9 @@ go:
   - 1.4.2
   - 1.5beta1
 
+install:
+  - echo "no dependencies to install"
+
 script:
   - go test .
   - go test -v ./cmd/maze/...
