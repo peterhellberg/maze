@@ -93,10 +93,12 @@ func (m Maze) String() string {
 	return s
 }
 
+// Width returns the width of the maze
 func (m Maze) Width() int {
 	return len(m)
 }
 
+// Height returns the height of the maze
 func (m Maze) Height() int {
 	return len(m[0])
 }
