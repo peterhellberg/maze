@@ -50,10 +50,6 @@ func New(w, h int) Maze {
 
 		opp := wall.opposite()
 
-		inMaze := func(x, y int, w, h int) bool {
-			return x >= 0 && x < w && y >= 0 && y < h
-		}
-
 		if inMaze(opp.x, opp.y, w-2, h-2) && maze[opp.x][opp.y] == Wall {
 			maze[wall.x][wall.y] = Empty
 			maze[opp.x][opp.y] = Empty
@@ -63,21 +59,30 @@ func New(w, h int) Maze {
 	}
 
 	maze[f.x][f.y] = Finish
-	bordered := make([][]rune, len(maze)+2)
 
-	for r := range bordered {
-		bordered[r] = make([]rune, len(maze[0]))
+	return borderedMaze(maze)
+}
 
-		for c := range bordered[r] {
+func borderedMaze(maze Maze) Maze {
+	b := make([][]rune, len(maze)+2)
+
+	for r := range b {
+		b[r] = make([]rune, len(maze[0]))
+
+		for c := range b[r] {
 			if r == 0 || r == len(maze)+1 || c == 0 || c == len(maze[0])+1 {
-				bordered[r][c] = Wall
+				b[r][c] = Wall
 			} else {
-				bordered[r][c] = maze[r-1][c-1]
+				b[r][c] = maze[r-1][c-1]
 			}
 		}
 	}
 
-	return bordered
+	return b
+}
+
+func inMaze(x, y int, w, h int) bool {
+	return x >= 0 && x < w && y >= 0 && y < h
 }
 
 func (m Maze) String() string {
