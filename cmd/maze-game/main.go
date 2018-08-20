@@ -18,7 +18,7 @@ import (
 var (
 	width  = flag.Int("w", 24, "Width of the screen")
 	height = flag.Int("h", 12, "Height of the screen")
-	scale  = flag.Int("s", 36, "Scaling factor")
+	scale  = flag.Float64("s", 36, "Scaling factor")
 
 	Orange = color.RGBA{0xFF, 0x66, 0x00, 0xFF}
 	Blue2  = color.RGBA{0x14, 0x5d, 0x7b, 0xff}
@@ -87,7 +87,7 @@ func (g *Game) newMaze() {
 	fmt.Println(g.Maze, "\nNew maze, current score:", g.Score)
 }
 
-func (g *Game) Run(width, height, scale int, title string) error {
+func (g *Game) Run(width, height int, scale float64, title string) error {
 	ticker := time.NewTicker(time.Millisecond * 70)
 	go func() {
 		for range ticker.C {
